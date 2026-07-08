@@ -1,0 +1,15 @@
+export const Config = {
+  APP_NAME: 'CoBuddy',
+  APP_SCHEME: 'cobuddy',
+  API_BASE_URL: __DEV__ ? 'http://localhost:3000/api/v1' : 'https://api.cobuddy.com/v1',
+  WS_URL: __DEV__ ? 'ws://localhost:3000' : 'wss://ws.cobuddy.com',
+  OTP_LENGTH: 6,
+  PIN_LENGTH: 6,
+  SESSION_TIMEOUT_MS: 30 * 60 * 1000,
+  SAFETY_CHECKIN_INTERVAL_MS: 15 * 60 * 1000,
+  MAX_UPLOAD_SIZE_MB: 10,
+  SUPPORTED_LANGUAGES: ['en', 'hi', 'fr', 'ar', 'es'],
+  DEFAULT_LANGUAGE: 'en',
+  DEFAULT_CURRENCY: 'USD',
+  MEMBERSHIP_TIERS: ['standard', 'premium', 'black', 'signature'] as const,
+} as const;
