@@ -11,6 +11,7 @@ export interface AuthState {
 export interface UserState {
   profile: UserProfile | null; trustScore: number | null;
   isLoading: boolean; accountStatus: AccountStatus;
+  isIdentityVerified: boolean;
 }
 
 export interface BookingDraft {

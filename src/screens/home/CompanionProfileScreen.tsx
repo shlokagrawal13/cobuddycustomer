@@ -15,6 +15,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {useUserStore} from '../../store/userStore';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'CompanionProfile'>;
 
@@ -71,6 +72,26 @@ const BADGES = [
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function CompanionProfileScreen({route, navigation}: Props) {
   const [saved, setSaved] = useState(false);
+  const isIdentityVerified = useUserStore(s => s.isIdentityVerified);
+
+  const handleRequestIntro = () => {
+    if (!isIdentityVerified) {
+      (navigation as any).navigate('ModalNavigator', {
+        screen: 'VerifyNavigator',
+        params: {
+          screen: 'SelfieCapture',
+          params: {
+            returnTo: 'CompanionCalendar',
+            returnParams: {companionId: route.params.companionId},
+          },
+        },
+      });
+    } else {
+      navigation.navigate('CompanionCalendar', {
+        companionId: route.params.companionId,
+      });
+    }
+  };
 
   return (
     <View style={styles.root}>
@@ -278,11 +299,7 @@ export default function CompanionProfileScreen({route, navigation}: Props) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.primaryBtn}
-              onPress={() =>
-                navigation.navigate('CompanionCalendar', {
-                  companionId: route.params.companionId,
-                })
-              }
+              onPress={handleRequestIntro}
               activeOpacity={0.85}>
               <Text style={styles.primaryBtnText}>REQUEST INTRO</Text>
             </TouchableOpacity>

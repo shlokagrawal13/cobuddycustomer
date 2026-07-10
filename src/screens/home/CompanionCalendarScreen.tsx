@@ -33,6 +33,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {useUserStore} from '../../store/userStore';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'CompanionCalendar'>;
 
@@ -98,12 +99,29 @@ export default function CompanionCalendarScreen({route, navigation}: Props) {
   const memberCredits = Math.round(experienceBase * 0.06);
   const total = experienceBase + conciergeFee - memberCredits;
 
+  const isIdentityVerified = useUserStore(s => s.isIdentityVerified);
+
   const handleContinue = () => {
     if (!selectedTime) {
       Alert.alert('Select Time', 'Please choose a time slot to continue.');
       return;
     }
     const slotId = `${selectedDay}_${selectedTime}`;
+
+    if (!isIdentityVerified) {
+      (navigation as any).navigate('ModalNavigator', {
+        screen: 'VerifyNavigator',
+        params: {
+          screen: 'SelfieCapture',
+          params: {
+            returnTo: 'BookingSummary',
+            returnParams: {companionId, slotId},
+          },
+        },
+      });
+      return;
+    }
+
     // BookingSummary is registered directly inside HomeNavigator (same stack).
     navigation.navigate('BookingSummary', {companionId, slotId});
   };

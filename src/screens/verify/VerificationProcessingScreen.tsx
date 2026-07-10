@@ -11,6 +11,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {VerifyStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {useUserStore} from '../../store/userStore';
 
 type Props = NativeStackScreenProps<VerifyStackParamList, 'VerificationProcessing'>;
 
@@ -32,9 +33,10 @@ const STEPS = [
 const CARD_BG     = 'rgba(11,13,26,0.8)';
 const CARD_BORDER = 'rgba(255,255,255,0.08)';
 
-export default function VerificationProcessingScreen({navigation}: Props) {
+export default function VerificationProcessingScreen({route, navigation}: Props) {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const shimmerAnim = useRef(new Animated.Value(0)).current;
+  const setIdentityVerified = useUserStore(s => s.setIdentityVerified);
 
   useEffect(() => {
     // Pulse animation for the processing icon
@@ -47,11 +49,23 @@ export default function VerificationProcessingScreen({navigation}: Props) {
 
     // Auto-navigate after 1.5s
     const timer = setTimeout(() => {
-      navigation.replace('VerificationPending');
+      setIdentityVerified(true);
+      if (route.params?.returnTo) {
+        // Return to the exact screen in the HomeStack
+        (navigation as any).navigate('MainTabNavigator', {
+          screen: 'HomeNavigator',
+          params: {
+            screen: route.params.returnTo,
+            params: route.params.returnParams,
+          },
+        });
+      } else {
+        navigation.replace('VerificationPending');
+      }
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, [navigation, pulseAnim]);
+  }, [navigation, pulseAnim, route.params, setIdentityVerified]);
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom']}>

@@ -29,11 +29,11 @@ export type OnboardingStackParamList = {
 
 // ─── Verify Stack ─────────────────────────────────────────────────────────────
 export type VerifyStackParamList = {
-  SelfieCapture: undefined;
-  LivenessDetection: undefined;
-  KYCDocumentUpload: undefined;
-  VerificationProcessing: undefined;
-  VerificationPending: undefined;
+  SelfieCapture: {returnTo?: string; returnParams?: any} | undefined;
+  LivenessDetection: {returnTo?: string; returnParams?: any} | undefined;
+  KYCDocumentUpload: {returnTo?: string; returnParams?: any} | undefined;
+  VerificationProcessing: {returnTo?: string; returnParams?: any} | undefined;
+  VerificationPending: {returnTo?: string; returnParams?: any} | undefined;
   IdentityTrustCenter: undefined;
   TrustScoreDashboard: undefined;
 };

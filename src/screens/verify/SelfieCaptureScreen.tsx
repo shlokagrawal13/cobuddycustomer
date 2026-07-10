@@ -30,12 +30,12 @@ const TIPS = [
 const CARD_BG     = 'rgba(11,13,26,0.8)';
 const CARD_BORDER = 'rgba(255,255,255,0.08)';
 
-export default function SelfieCaptureScreen({navigation}: Props) {
+export default function SelfieCaptureScreen({route, navigation}: Props) {
   const [captured, setCaptured] = useState(false);
 
   const handleCapture = () => {
     setCaptured(true);
-    setTimeout(() => navigation.navigate('LivenessDetection'), 800);
+    setTimeout(() => navigation.navigate('LivenessDetection', route.params), 800);
   };
 
   return (

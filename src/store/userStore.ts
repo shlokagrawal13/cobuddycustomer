@@ -8,10 +8,11 @@ interface UserActions {
   setTrustScore: (score: number) => void;
   setAccountStatus: (status: 'active' | 'under_review' | 'suspended') => void;
   setLoading: (val: boolean) => void;
+  setIdentityVerified: (val: boolean) => void;
   clearProfile: () => void;
 }
 
-const initialState: UserState = {profile: null, trustScore: null, isLoading: false, accountStatus: 'active'};
+const initialState: UserState = {profile: null, trustScore: null, isLoading: false, accountStatus: 'active', isIdentityVerified: false};
 
 export const useUserStore = create<UserState & UserActions>()(set => ({
   ...initialState,
@@ -20,5 +21,6 @@ export const useUserStore = create<UserState & UserActions>()(set => ({
   setTrustScore: score => set({trustScore: score}),
   setAccountStatus: status => set({accountStatus: status}),
   setLoading: val => set({isLoading: val}),
+  setIdentityVerified: val => set({isIdentityVerified: val}),
   clearProfile: () => set({...initialState}),
 }));

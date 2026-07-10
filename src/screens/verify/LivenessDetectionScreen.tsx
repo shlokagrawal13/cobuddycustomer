@@ -34,7 +34,7 @@ type StepId = typeof STEPS[number]['id'];
 const CARD_BG     = 'rgba(11,13,26,0.8)';
 const CARD_BORDER = 'rgba(255,255,255,0.08)';
 
-export default function LivenessDetectionScreen({navigation}: Props) {
+export default function LivenessDetectionScreen({route, navigation}: Props) {
   const [completedSteps, setCompletedSteps] = useState<Set<StepId>>(new Set());
   const [activeStep, setActiveStep] = useState<StepId>('front');
 
@@ -187,7 +187,7 @@ export default function LivenessDetectionScreen({navigation}: Props) {
         {/* CTA */}
         <TouchableOpacity
           style={[styles.ctaBtn, !allDone && styles.ctaBtnDisabled]}
-          onPress={() => navigation.navigate('KYCDocumentUpload')}
+          onPress={() => navigation.navigate('KYCDocumentUpload', route.params)}
           disabled={!allDone}
           activeOpacity={0.85}>
           <Icon name="verified-user" size={18} color={Colors.onPrimary} />

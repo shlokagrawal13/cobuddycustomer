@@ -44,7 +44,7 @@ const CARD_BORDER = 'rgba(255,255,255,0.08)';
 
 type UploadState = 'idle' | 'selected' | 'uploaded';
 
-export default function KYCDocumentUploadScreen({navigation}: Props) {
+export default function KYCDocumentUploadScreen({route, navigation}: Props) {
   const [selectedDocType, setSelectedDocType] = useState<DocTypeId>('aadhaar');
   const [frontState, setFrontState] = useState<UploadState>('idle');
   const [backState, setBackState]   = useState<UploadState>('idle');
@@ -201,7 +201,7 @@ export default function KYCDocumentUploadScreen({navigation}: Props) {
         {/* CTA — Stitch: "Continue Verification" */}
         <TouchableOpacity
           style={[styles.ctaBtn, !canSubmit && styles.ctaBtnDisabled]}
-          onPress={() => navigation.navigate('VerificationProcessing')}
+          onPress={() => navigation.navigate('VerificationProcessing', route.params)}
           activeOpacity={0.85}>
           <Icon name="upload" size={18} color={Colors.onPrimary} />
           <Text style={styles.ctaBtnText}>Submit Documents</Text>
@@ -211,7 +211,7 @@ export default function KYCDocumentUploadScreen({navigation}: Props) {
         {!canSubmit && (
           <TouchableOpacity
             style={styles.skipBtn}
-            onPress={() => navigation.navigate('VerificationProcessing')}
+            onPress={() => navigation.navigate('VerificationProcessing', route.params)}
             activeOpacity={0.7}>
             <Text style={styles.skipBtnText}>Skip Upload (Demo Mode)</Text>
           </TouchableOpacity>
