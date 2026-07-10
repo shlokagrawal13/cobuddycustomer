@@ -3,6 +3,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from './types';
 import HomeDashboardScreen from '../screens/home/HomeDashboardScreen';
 import CompanionBrowseScreen from '../screens/home/CompanionBrowseScreen';
+import ExploreScreen from '../screens/home/ExploreScreen';
+import CompanionListingScreen from '../screens/home/CompanionListingScreen';
 import CompanionProfileScreen from '../screens/home/CompanionProfileScreen';
 import CompanionCalendarScreen from '../screens/home/CompanionCalendarScreen';
 // BookingSummaryScreen registered here so CompanionCalendar → BookingSummary
@@ -24,6 +26,8 @@ export default function HomeNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="HomeDashboard">
       <Stack.Screen name="HomeDashboard" component={HomeDashboardScreen} />
+      <Stack.Screen name="Explore" component={ExploreScreen} />
+      <Stack.Screen name="CompanionListing" component={CompanionListingScreen} />
       <Stack.Screen name="CompanionBrowse" component={CompanionBrowseScreen} />
       <Stack.Screen name="CompanionProfile" component={CompanionProfileScreen} />
       <Stack.Screen name="CompanionCalendar" component={CompanionCalendarScreen} />

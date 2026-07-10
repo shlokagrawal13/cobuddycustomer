@@ -21,7 +21,7 @@ const comingSoon = () =>
   Alert.alert('Coming Soon', 'This action will be connected in the next phase.');
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-interface Companion {
+export interface Companion {
   id: string;
   name: string;
   initials: string;
@@ -40,7 +40,7 @@ interface Companion {
 type FilterKey = 'ALL' | 'AVAILABLE' | 'TOP_RATED' | 'NEW';
 
 // ─── Mock Data ────────────────────────────────────────────────────────────────
-const COMPANIONS: Companion[] = [
+export const COMPANIONS: Companion[] = [
   {
     id: 'comp_001',
     name: 'Elena Vasquez',
@@ -151,7 +151,7 @@ function applyFilter(items: Companion[], filter: FilterKey): Companion[] {
 }
 
 // ─── Companion Card ───────────────────────────────────────────────────────────
-function CompanionCard({
+export function CompanionCard({
   companion,
   onPress,
 }: {

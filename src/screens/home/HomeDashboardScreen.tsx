@@ -56,7 +56,7 @@ export default function HomeDashboardScreen({navigation}: Props) {
     });
 
   const handleQuickAction = (id: string) => {
-    if (id === 'book')      { navigation.navigate('CompanionBrowse'); return; }
+    if (id === 'book')      { navigation.navigate('Explore'); return; }
     if (id === 'concierge') {
       (navigation as any).navigate('ConciergeNavigator');
       return;

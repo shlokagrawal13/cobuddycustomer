@@ -41,6 +41,8 @@ export type VerifyStackParamList = {
 // ─── Home Stack ───────────────────────────────────────────────────────────────
 export type HomeStackParamList = {
   HomeDashboard: undefined;
+  Explore: undefined;
+  CompanionListing: {category: string; filters: string[]};
   CompanionBrowse: undefined;
   CompanionProfile: {companionId: string};
   CompanionCalendar: {companionId: string};
