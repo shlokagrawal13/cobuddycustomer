@@ -14,19 +14,19 @@ import Icon from '../../components/ui/Icon';
 import {CommonActions} from '@react-navigation/native';
 import {ModalStackParamList} from '../../navigation/types';
 
-type Props = NativeStackScreenProps<ModalStackParamList, 'PaymentSuccess'>;
+type Props = NativeStackScreenProps<ModalStackParamList, 'BookingRequested'>;
 
 const CARD_BG = 'rgba(32,32,26,0.95)';
 const CARD_BORDER = 'rgba(255,255,255,0.07)';
 const GOLD_BORDER = 'rgba(242,202,80,0.20)';
 
 const CONFIRMATION_CHIPS = [
-  {icon: 'support-agent', label: 'Concierge Notified'},
-  {icon: 'person-pin-circle', label: 'Companion Confirmed'},
-  {icon: 'confirmation-number', label: 'Pass Ready'},
+  {icon: 'send', label: 'Request Sent'},
+  {icon: 'account-balance', label: 'Funds in Escrow'},
+  {icon: 'schedule', label: 'Pending Approval'},
 ];
 
-export default function PaymentSuccessScreen({navigation, route}: Props) {
+export default function BookingRequestedScreen({navigation, route}: Props) {
   const {bookingId, amount} = route.params;
   const shortBookingId = bookingId.substring(0, 10).toUpperCase();
 
@@ -37,10 +37,8 @@ export default function PaymentSuccessScreen({navigation, route}: Props) {
     maximumFractionDigits: 0,
   }).format(amount);
 
-  const handleViewPass = () => {
-    // PaymentSuccessScreen lives in ModalNavigator (child of RootNavigator).
-    // SessionsNavigator is inside MainTabNavigator (also child of RootNavigator).
-    // Must navigate through MainTabNavigator first, then SessionsNavigator, then DigitalPass.
+  const handleViewStatus = () => {
+    // Return to BookingHistory for now since the request is pending
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
@@ -50,7 +48,26 @@ export default function PaymentSuccessScreen({navigation, route}: Props) {
             params: {
               screen: 'SessionsNavigator',
               params: {
-                screen: 'DigitalPass',
+                screen: 'BookingHistory',
+              },
+            },
+          },
+        ],
+      })
+    );
+  };
+
+  const handleSimulateAccept = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'MainTabNavigator',
+            params: {
+              screen: 'SessionsNavigator',
+              params: {
+                screen: 'BookingConfirmed',
                 params: {bookingId: route.params.bookingId},
               },
             },
@@ -58,6 +75,10 @@ export default function PaymentSuccessScreen({navigation, route}: Props) {
         ],
       })
     );
+  };
+
+  const handleSimulateDecline = () => {
+    navigation.navigate('BookingDeclined', {bookingId: route.params.bookingId});
   };
 
   const handleBackToSessions = () => {
@@ -100,12 +121,12 @@ export default function PaymentSuccessScreen({navigation, route}: Props) {
         </View>
 
         {/* Title */}
-        <Text style={styles.title}>Payment Confirmed</Text>
-        <Text style={styles.subtitle}>Your reservation is secured.</Text>
+        <Text style={styles.title}>Booking Requested</Text>
+        <Text style={styles.subtitle}>Waiting for companion response.</Text>
 
         {/* Amount Display */}
         <View style={styles.amountCard}>
-          <Text style={styles.amountLabel}>TOTAL CHARGED</Text>
+          <Text style={styles.amountLabel}>TOTAL AUTHORIZED</Text>
           <Text style={styles.amountValue}>{formattedAmount}</Text>
           <View style={styles.amountDivider} />
           {/* Booking Reference */}
@@ -142,11 +163,24 @@ export default function PaymentSuccessScreen({navigation, route}: Props) {
         {/* Primary CTA */}
         <TouchableOpacity
           style={styles.primaryButton}
-          onPress={handleViewPass}
+          onPress={handleViewStatus}
           activeOpacity={0.85}>
-          <Icon name="qr-code-2" size={20} color={Colors.onPrimary} />
-          <Text style={styles.primaryButtonText}>View Digital Pass</Text>
+          <Icon name="schedule" size={20} color={Colors.onPrimary} />
+          <Text style={styles.primaryButtonText}>View Request Status</Text>
         </TouchableOpacity>
+
+        {/* Mock Action Section */}
+        <View style={styles.mockActions}>
+          <Text style={styles.mockLabel}>DEV ONLY: SIMULATE RESPONSE</Text>
+          <View style={styles.mockRow}>
+            <TouchableOpacity style={[styles.mockBtn, styles.mockAccept]} onPress={handleSimulateAccept}>
+              <Text style={styles.mockBtnText}>Simulate Accept</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.mockBtn, styles.mockDecline]} onPress={handleSimulateDecline}>
+              <Text style={styles.mockBtnText}>Simulate Decline</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
         {/* Secondary */}
         <TouchableOpacity
@@ -386,5 +420,49 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.onSurfaceVariant,
     textDecorationLine: 'underline',
+  },
+
+  // Mock
+  mockActions: {
+    width: '100%',
+    padding: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 12,
+    borderStyle: 'dashed',
+    marginBottom: 16,
+  },
+  mockLabel: {
+    fontFamily: 'Inter-Bold',
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.5)',
+    textAlign: 'center',
+    marginBottom: 10,
+    letterSpacing: 1,
+  },
+  mockRow: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  mockBtn: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  mockAccept: {
+    backgroundColor: 'rgba(109,217,140,0.2)',
+    borderWidth: 1,
+    borderColor: Colors.success,
+  },
+  mockDecline: {
+    backgroundColor: 'rgba(255,100,100,0.2)',
+    borderWidth: 1,
+    borderColor: Colors.error,
+  },
+  mockBtnText: {
+    fontFamily: 'Inter-Medium',
+    fontSize: 12,
+    color: Colors.onSurface,
   },
 });

@@ -6,7 +6,8 @@ import AccountDeactivatedScreen from '../screens/system/AccountDeactivatedScreen
 import CheckoutScreen from '../screens/system/CheckoutScreen';
 import VIPEventReservationScreen from '../screens/system/VIPEventReservationScreen';
 import PaymentProcessingScreen from '../screens/system/PaymentProcessingScreen';
-import PaymentSuccessScreen from '../screens/system/PaymentSuccessScreen';
+import BookingRequestedScreen from '../screens/system/BookingRequestedScreen';
+import BookingDeclinedScreen from '../screens/system/BookingDeclinedScreen';
 import DeleteAccountScreen from '../screens/system/DeleteAccountScreen';
 const Stack = createNativeStackNavigator<ModalStackParamList>();
 export default function ModalNavigator() {
@@ -18,7 +19,8 @@ export default function ModalNavigator() {
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
       <Stack.Screen name="VIPEventReservation" component={VIPEventReservationScreen} />
       <Stack.Screen name="PaymentProcessing" component={PaymentProcessingScreen} />
-      <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+      <Stack.Screen name="BookingRequested" component={BookingRequestedScreen} />
+      <Stack.Screen name="BookingDeclined" component={BookingDeclinedScreen} />
     </Stack.Navigator>
   );
 }

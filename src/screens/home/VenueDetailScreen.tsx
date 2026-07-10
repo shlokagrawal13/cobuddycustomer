@@ -40,64 +40,55 @@ const VENUE_DATA: Record<string, {
     dresscode: 'Smart Formal',
     rating: '4.9',
     verified: true,
-    description: 'The Atelier is an intimate dining room tucked within a Mayfair townhouse. Seven private tables, a Michelin-recommended kitchen, and discreet service define every evening. Reservations are exclusively managed through our concierge.',
+    description: 'The Atelier is a beautiful public dining room tucked within Mayfair. This is a suggested public location for your session.',
     icon: 'restaurant',
     amenities: [
-      {icon: 'wifi',         label: 'Private Wi-Fi'},
-      {icon: 'spa',          label: 'Wellness Suite'},
-      {icon: 'restaurant',   label: 'Private Chef'},
-      {icon: 'security',     label: 'Discrete Entry'},
+      {icon: 'wifi',         label: 'Public Wi-Fi'},
+      {icon: 'restaurant',   label: 'Fine Dining'},
     ],
     gallery: [
       {icon: 'dining',       label: 'Dining Room'},
-      {icon: 'wine-bar',     label: 'Wine Cellar'},
-      {icon: 'local-florist',label: 'Garden Terrace'},
+      {icon: 'wine-bar',     label: 'Wine Selection'},
     ],
   },
   obsidian: {
     name: 'Obsidian Lounge',
-    category: 'Members Bar',
+    category: 'Lounge',
     location: 'Soho, London',
     address: '3 Wardour Street, Soho, W1D 6PB',
     hours: 'Tue–Sun 19:00–02:00',
     dresscode: 'Smart Casual',
     rating: '4.8',
     verified: true,
-    description: 'A subterranean members bar with a curated cocktail list, live jazz on weekends, and an exclusive atmosphere. The private Onyx Room accommodates up to 10 guests for reserved evenings.',
+    description: 'A popular lounge with a curated cocktail list and live jazz on weekends. This is a suggested public location for your session.',
     icon: 'local-bar',
     amenities: [
       {icon: 'music-note',   label: 'Live Jazz'},
       {icon: 'local-bar',    label: 'Craft Cocktails'},
-      {icon: 'security',     label: 'Members Only'},
-      {icon: 'wifi',         label: 'Private Wi-Fi'},
     ],
     gallery: [
       {icon: 'local-bar',    label: 'Bar Area'},
-      {icon: 'meeting-room', label: 'Private Room'},
       {icon: 'music-note',   label: 'Stage'},
     ],
   },
-  sanctuary: {
-    name: 'The Sanctuary',
-    category: 'Wellness & Spa',
-    location: 'Kensington, London',
-    address: '8 Cromwell Road, Kensington, SW7 2JN',
-    hours: 'Daily 07:00–21:00',
-    dresscode: 'Relaxed',
-    rating: '5.0',
+  hyde_cafe: {
+    name: 'Hyde Park Cafe',
+    category: 'Cafe',
+    location: 'Hyde Park, London',
+    address: 'Serpentine Rd, London',
+    hours: 'Daily 07:00–18:00',
+    dresscode: 'Casual',
+    rating: '4.6',
     verified: true,
-    description: 'The Sanctuary is a private wellness retreat offering bespoke spa treatments, guided meditation, hydrotherapy circuits, and holistic health consultations. Day use and private event bookings available.',
-    icon: 'spa',
+    description: 'A relaxed lakeside cafe offering light bites and coffee. This is a suggested public location for your session.',
+    icon: 'local-cafe',
     amenities: [
-      {icon: 'spa',          label: 'Spa Treatments'},
-      {icon: 'pool',         label: 'Hydrotherapy'},
-      {icon: 'self-improvement', label: 'Meditation'},
-      {icon: 'restaurant',   label: 'Healthy Café'},
+      {icon: 'wifi',         label: 'Public Wi-Fi'},
+      {icon: 'deck',         label: 'Outdoor Seating'},
     ],
     gallery: [
-      {icon: 'spa',          label: 'Treatment Room'},
-      {icon: 'pool',         label: 'Thermal Pool'},
-      {icon: 'deck',         label: 'Relaxation Deck'},
+      {icon: 'local-cafe',   label: 'Cafe Front'},
+      {icon: 'park',         label: 'Lake View'},
     ],
   },
 };
@@ -158,7 +149,7 @@ export default function VenueDetailScreen({navigation, route}: Props) {
             {venue.verified && (
               <View style={styles.verifiedBadge}>
                 <Icon name="verified" size={11} color={Colors.onPrimary} />
-                <Text style={styles.verifiedBadgeText}>CONCIERGE VERIFIED</Text>
+                <Text style={styles.verifiedBadgeText}>COBUDDY SUGGESTED</Text>
               </View>
             )}
             {/* Rating */}
@@ -257,8 +248,8 @@ export default function VenueDetailScreen({navigation, route}: Props) {
           style={styles.ctaPrimary}
           onPress={() => (navigation as any).navigate('HomeNavigator', {screen: 'CompanionBrowse'})}
           activeOpacity={0.88}>
-          <Icon name="person-add" size={18} color={Colors.onPrimary} />
-          <Text style={styles.ctaPrimaryText}>Reserve This Venue</Text>
+          <Icon name="place" size={18} color={Colors.onPrimary} />
+          <Text style={styles.ctaPrimaryText}>Select as Meeting Point</Text>
         </TouchableOpacity>
 
         {/* Concierge footer */}

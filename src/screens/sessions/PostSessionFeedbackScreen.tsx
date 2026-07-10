@@ -67,6 +67,8 @@ export default function PostSessionFeedbackScreen({navigation, route}: Props) {
   const {sessionId} = route.params;
   const [sliderValues, setSliderValues] = useState({comfort: 2, communication: 2, connection: 2});
   const [notes, setNotes] = useState('');
+  const [companionRating, setCompanionRating] = useState(0);
+  const [companionReview, setCompanionReview] = useState('');
 
   const setSlider = (id: string, val: number) => {
     setSliderValues(prev => ({...prev, [id]: val}));
@@ -133,6 +135,38 @@ export default function PostSessionFeedbackScreen({navigation, route}: Props) {
             <Icon name="location-on" size={13} color={Colors.onSurfaceVariant} />
             <Text style={styles.summaryText}>The Ritz-Carlton Lounge</Text>
           </View>
+        </View>
+
+        {/* Companion Rating & Review */}
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Rate Your Companion</Text>
+          
+          <View style={styles.starRow}>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <TouchableOpacity
+                key={star}
+                onPress={() => setCompanionRating(star)}
+                activeOpacity={0.7}
+                hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+                <Icon
+                  name={star <= companionRating ? 'star' : 'star-outline'}
+                  size={36}
+                  color={star <= companionRating ? Colors.primary : Colors.onSurfaceVariant}
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <TextInput
+            style={styles.notesInput}
+            multiline
+            numberOfLines={3}
+            value={companionReview}
+            onChangeText={setCompanionReview}
+            placeholder="Write a public review (optional)..."
+            placeholderTextColor={Colors.onSurfaceVariant}
+            textAlignVertical="top"
+          />
         </View>
 
         {/* Emotional Reflection */}
@@ -277,4 +311,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary, borderRadius: 100, paddingVertical: 15,
   },
   completeBtnText: {fontFamily: 'Inter-SemiBold', fontSize: 15, color: Colors.onPrimary},
+
+  // Stars
+  starRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+    marginVertical: 10,
+  },
 });

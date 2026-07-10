@@ -23,15 +23,15 @@ const GOLD_BORDER = 'rgba(242,202,80,0.20)';
 const demoAlert = () =>
   Alert.alert('Coming Soon', 'Full venue search will be available in the next release.');
 
-const CATEGORIES = ['All', 'Dining', 'Lounges', 'Private', 'Wellness'];
+const CATEGORIES = ['All', 'Dining', 'Cafe', 'Lounge', 'Park', 'Mall'];
 
 const VENUES = [
   {id: 'atelier',    name: 'The Atelier',           category: 'Dining',  location: 'Mayfair, London',    rating: '4.9', icon: 'restaurant',  verified: true},
-  {id: 'obsidian',   name: 'Obsidian Lounge',        category: 'Lounges', location: 'Soho, London',       rating: '4.8', icon: 'local-bar',   verified: true},
-  {id: 'sanctuary',  name: 'The Sanctuary',          category: 'Wellness',location: 'Kensington, London', rating: '5.0', icon: 'spa',         verified: true},
-  {id: 'grand',      name: 'The Grand Reserve',      category: 'Private', location: 'Belgravia, London',  rating: '4.9', icon: 'hotel',       verified: false},
-  {id: 'vault',      name: 'Vault Club',             category: 'Lounges', location: 'Chelsea, London',    rating: '4.7', icon: 'nightlife',   verified: false},
-  {id: 'conserve',   name: 'The Conservatory',       category: 'Private', location: 'Notting Hill',       rating: '4.8', icon: 'pool',        verified: true},
+  {id: 'obsidian',   name: 'Obsidian Lounge',        category: 'Lounge', location: 'Soho, London',       rating: '4.8', icon: 'local-bar',   verified: true},
+  {id: 'hyde_cafe',  name: 'Hyde Park Cafe',         category: 'Cafe',    location: 'Hyde Park, London',  rating: '4.6', icon: 'local-cafe',  verified: true},
+  {id: 'regents',    name: 'Regents Park Walk',      category: 'Park',    location: 'Regents Park',       rating: '4.9', icon: 'park',        verified: true},
+  {id: 'vault',      name: 'Vault Club',             category: 'Lounge',  location: 'Chelsea, London',    rating: '4.7', icon: 'nightlife',   verified: false},
+  {id: 'harrods',    name: 'Harrods Dining Hall',    category: 'Mall',    location: 'Knightsbridge',      rating: '4.8', icon: 'local-mall',  verified: true},
 ];
 
 export default function VenueBrowseScreen({navigation}: Props) {
@@ -55,11 +55,11 @@ export default function VenueBrowseScreen({navigation}: Props) {
           activeOpacity={0.7}>
           <Icon name="arrow-back" size={22} color={Colors.onSurface} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Trusted Venues</Text>
+        <Text style={styles.headerTitle}>Suggested Places</Text>
         <TouchableOpacity style={styles.headerIconBtn} onPress={() =>
           Alert.alert(
-            'Filter Venues',
-            'Use the category tabs below to filter venues. Additional sort and price filters will be available in the next release.',
+            'Filter Places',
+            'Use the category tabs below to filter suggested places.',
             [{text: 'OK'}],
           )
         } activeOpacity={0.7}>
@@ -74,12 +74,12 @@ export default function VenueBrowseScreen({navigation}: Props) {
           <View style={styles.heroBadgeRow}>
             <View style={styles.heroBadge}>
               <Icon name="verified" size={11} color={Colors.primary} />
-              <Text style={styles.heroBadgeText}>CONCIERGE VERIFIED</Text>
+              <Text style={styles.heroBadgeText}>COBUDDY SUGGESTED</Text>
             </View>
           </View>
-          <Text style={styles.heroTitle}>Private Venues &{'\n'}Exclusive Spaces</Text>
+          <Text style={styles.heroTitle}>Suggested{'\n'}Meeting Places</Text>
           <Text style={styles.heroSub}>
-            Every venue in our curated network is personally verified by our concierge team for discretion and quality.
+            Discover safe and popular public locations for your session.
           </Text>
         </View>
 
@@ -117,7 +117,7 @@ export default function VenueBrowseScreen({navigation}: Props) {
               {venue.verified && (
                 <View style={styles.verifiedBadge}>
                   <Icon name="verified" size={10} color={Colors.onPrimary} />
-                  <Text style={styles.verifiedBadgeText}>CONCIERGE VERIFIED</Text>
+                  <Text style={styles.verifiedBadgeText}>SUGGESTED</Text>
                 </View>
               )}
               {/* Category */}
@@ -148,13 +148,13 @@ export default function VenueBrowseScreen({navigation}: Props) {
         {/* Browse all CTA */}
         <TouchableOpacity style={styles.browseAllBtn} onPress={() =>
           Alert.alert(
-            'Browse All Venues',
-            'All available venues are shown above. Contact your concierge to discover exclusive unlisted venues not visible in the app.',
+            'Suggest Place',
+            'Custom location selection and maps integration will be added in the next release.',
             [{text: 'OK'}],
           )
         } activeOpacity={0.8}>
-          <Icon name="search" size={16} color={Colors.onSurfaceVariant} />
-          <Text style={styles.browseAllText}>Browse All Venues</Text>
+          <Icon name="add-location-alt" size={16} color={Colors.primary} />
+          <Text style={[styles.browseAllText, {color: Colors.primary}]}>Suggest your own public place</Text>
         </TouchableOpacity>
 
         <View style={{height: 24}} />

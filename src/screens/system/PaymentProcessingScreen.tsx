@@ -26,7 +26,7 @@ const STEPS: Step[] = [
   {num: '01', label: 'Payment Authorization', state: 'done'},
   {num: '02', label: 'Secure Verification',   state: 'active'},
   {num: '03', label: 'Escrow Protection',      state: 'pending'},
-  {num: '04', label: 'Booking Confirmation',   state: 'pending'},
+  {num: '04', label: 'Booking Request Sent',   state: 'pending'},
 ];
 
 const TRUST_PILLS = [
@@ -42,7 +42,7 @@ export default function PaymentProcessingScreen({route, navigation}: Props) {
   // Auto-advance after 1.5 s
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('PaymentSuccess', {bookingId, amount: resolvedAmount});
+      navigation.replace('BookingRequested', {bookingId, amount: resolvedAmount});
     }, 1500);
     return () => clearTimeout(timer);
   }, [bookingId, resolvedAmount, navigation]);

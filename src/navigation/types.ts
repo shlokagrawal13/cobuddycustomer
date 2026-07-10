@@ -156,7 +156,8 @@ export type ModalStackParamList = {
   Checkout: {companionId: string; slotId: string; venueId?: string; eventId?: string};
   VIPEventReservation: {eventId: string};
   PaymentProcessing: {bookingId: string; amount?: number};
-  PaymentSuccess: {bookingId: string; amount: number};
+  BookingRequested: {bookingId: string; amount: number};
+  BookingDeclined: {bookingId: string};
 };
 
 // ─── Main Tab ─────────────────────────────────────────────────────────────────

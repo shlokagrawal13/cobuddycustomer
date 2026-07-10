@@ -48,7 +48,8 @@ export const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           IncomingCall: 'concierge/incoming-call',
           AccountDeactivated: 'account/deactivated',
-          PaymentSuccess: 'checkout/success',
+          BookingRequested: 'checkout/requested',
+          BookingDeclined: 'checkout/declined',
         },
       },
       SafetyNavigator: {
