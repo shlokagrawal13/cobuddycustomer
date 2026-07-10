@@ -11,6 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {CommonActions} from '@react-navigation/native';
 import {ModalStackParamList} from '../../navigation/types';
 
 type Props = NativeStackScreenProps<ModalStackParamList, 'PaymentSuccess'>;
@@ -40,20 +41,40 @@ export default function PaymentSuccessScreen({navigation, route}: Props) {
     // PaymentSuccessScreen lives in ModalNavigator (child of RootNavigator).
     // SessionsNavigator is inside MainTabNavigator (also child of RootNavigator).
     // Must navigate through MainTabNavigator first, then SessionsNavigator, then DigitalPass.
-    (navigation as any).navigate('MainTabNavigator', {
-      screen: 'SessionsNavigator',
-      params: {
-        screen: 'DigitalPass',
-        params: {bookingId: route.params.bookingId},
-      },
-    });
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'MainTabNavigator',
+            params: {
+              screen: 'SessionsNavigator',
+              params: {
+                screen: 'DigitalPass',
+                params: {bookingId: route.params.bookingId},
+              },
+            },
+          },
+        ],
+      })
+    );
   };
 
   const handleBackToSessions = () => {
     // Same cross-stack hop required — Modal → MainTab → Sessions.
-    (navigation as any).navigate('MainTabNavigator', {
-      screen: 'SessionsNavigator',
-    });
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'MainTabNavigator',
+            params: {
+              screen: 'SessionsNavigator',
+            },
+          },
+        ],
+      })
+    );
   };
 
   return (

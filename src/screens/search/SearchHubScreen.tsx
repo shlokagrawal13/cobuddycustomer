@@ -87,7 +87,7 @@ export default function SearchHubScreen({navigation}: Props) {
           <Text style={styles.headerTitle}>Discover</Text>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity style={styles.headerIconBtn} onPress={() => navigation.navigate('AIMatchFeed')} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.headerIconBtn} onPress={() => (navigation as any).navigate('HomeNavigator', {screen: 'CompanionBrowse'})} activeOpacity={0.7}>
             <Icon name="search" size={18} color={Colors.onSurface} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerIconBtn}
@@ -127,7 +127,7 @@ export default function SearchHubScreen({navigation}: Props) {
                 placeholderTextColor="rgba(208,197,175,0.4)"
                 returnKeyType="search"
               />
-              <TouchableOpacity style={styles.searchBtn} onPress={() => navigation.navigate('AIMatchFeed')} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.searchBtn} onPress={() => (navigation as any).navigate('HomeNavigator', {screen: 'CompanionBrowse'})} activeOpacity={0.8}>
                 <Text style={styles.searchBtnText}>SEARCH</Text>
               </TouchableOpacity>
             </View>
@@ -200,7 +200,7 @@ export default function SearchHubScreen({navigation}: Props) {
           </View>
 
           {/* AI Rec card */}
-          <View style={styles.aiCard}>
+          <TouchableOpacity style={styles.aiCard} onPress={() => navigation.navigate('AIMatchFeed')} activeOpacity={0.85}>
             <View style={styles.aiImgWrap}>
               <Text style={styles.aiImgIcon}>{AI_REC.icon}</Text>
               <View style={styles.aiMatchBadge}>
@@ -221,14 +221,14 @@ export default function SearchHubScreen({navigation}: Props) {
                 <Text style={styles.aiFooterText}>{AI_REC.footer}</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* ── Curated Results Grid ── */}
         <View style={styles.resultsSection}>
           <View style={styles.resultsSectionHeader}>
             <Text style={styles.resultsSectionTitle}>Curated For Tonight</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('AIMatchFeed')} activeOpacity={0.7}>
+            <TouchableOpacity onPress={() => (navigation as any).navigate('HomeNavigator', {screen: 'CompanionBrowse'})} activeOpacity={0.7}>
               <Text style={styles.seeAll}>SEE ALL →</Text>
             </TouchableOpacity>
           </View>

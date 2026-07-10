@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {CommonActions} from '@react-navigation/native';
 import type {SessionsStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
@@ -114,10 +115,21 @@ export default function BookingConfirmedScreen({route, navigation}: Props) {
   const session = resolveSession(bookingId);
 
   const handleViewSession = () => {
-    navigation.navigate('UpcomingSession', {sessionId: bookingId});
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'UpcomingSession', params: {sessionId: bookingId}}],
+      })
+    );
   };
 
   const handleExploreMore = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'BookingHistory'}],
+      })
+    );
     (navigation as any).navigate('HomeNavigator', {screen: 'CompanionBrowse'});
   };
 

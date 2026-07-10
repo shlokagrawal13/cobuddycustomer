@@ -19,8 +19,6 @@ import Icon from '../../components/ui/Icon';
 type Props = NativeStackScreenProps<AuthStackParamList, 'Welcome'>;
 const {height: SCREEN_H, width: SCREEN_W} = Dimensions.get('window');
 
-const comingSoon = () =>
-  Alert.alert('Coming Soon', 'This section will be available in the next release.');
 
 const TRUST_PILLARS = [
   {icon: '🛡', label: 'Verified'},
@@ -97,15 +95,15 @@ export default function WelcomeScreen({navigation}: Props) {
 
         {/* Footer links */}
         <View style={styles.footer}>
-          <TouchableOpacity onPress={comingSoon} activeOpacity={0.7}>
+          <TouchableOpacity activeOpacity={0.7}>
             <Text style={styles.footerItem}>Privacy</Text>
           </TouchableOpacity>
           <Text style={styles.footerDot}> · </Text>
-          <TouchableOpacity onPress={comingSoon} activeOpacity={0.7}>
+          <TouchableOpacity activeOpacity={0.7}>
             <Text style={styles.footerItem}>Terms</Text>
           </TouchableOpacity>
           <Text style={styles.footerDot}> · </Text>
-          <TouchableOpacity onPress={comingSoon} activeOpacity={0.7}>
+          <TouchableOpacity activeOpacity={0.7}>
             <Text style={styles.footerItem}>Support</Text>
           </TouchableOpacity>
         </View>

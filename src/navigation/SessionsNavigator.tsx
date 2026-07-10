@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import type {SessionsStackParamList} from './types';
-import BookingSummaryScreen from '../screens/sessions/BookingSummaryScreen';
+
 import SessionPrepScreen from '../screens/sessions/SessionPrepScreen';
 import BookingConfirmedScreen from '../screens/sessions/BookingConfirmedScreen';
 import DigitalPassScreen from '../screens/sessions/DigitalPassScreen';
@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator<SessionsStackParamList>();
 export default function SessionsNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="BookingHistory">
-      <Stack.Screen name="BookingSummary" component={BookingSummaryScreen} />
+
       <Stack.Screen name="SessionPrep" component={SessionPrepScreen} />
       <Stack.Screen name="BookingConfirmed" component={BookingConfirmedScreen} />
       <Stack.Screen name="DigitalPass" component={DigitalPassScreen} />
