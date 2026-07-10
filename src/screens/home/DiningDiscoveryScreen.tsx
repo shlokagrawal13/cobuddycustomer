@@ -8,6 +8,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {FeatureFlags} from '../../config/featureFlags';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'DiningDiscovery'>;
 
@@ -120,17 +121,19 @@ export default function DiningDiscoveryScreen({navigation}: Props) {
                 <Text style={styles.featuredStat}>Private dining available</Text>
               </View>
             </View>
-            <TouchableOpacity
-              style={styles.featuredCTA}
-              onPress={() =>
-                (navigation as any).navigate('ModalNavigator', {
-                  screen: 'VIPEventReservation',
-                  params: {eventId: 'featured_atrium_001'},
-                })
-              }
-              activeOpacity={0.87}>
-              <Text style={styles.featuredCTAText}>Reserve</Text>
-            </TouchableOpacity>
+            {FeatureFlags.VIP_EVENTS && (
+              <TouchableOpacity
+                style={styles.featuredCTA}
+                onPress={() =>
+                  (navigation as any).navigate('ModalNavigator', {
+                    screen: 'VIPEventReservation',
+                    params: {eventId: 'featured_atrium_001'},
+                  })
+                }
+                activeOpacity={0.87}>
+                <Text style={styles.featuredCTAText}>Reserve</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 
@@ -190,17 +193,19 @@ export default function DiningDiscoveryScreen({navigation}: Props) {
                 <Text style={styles.chefGuests}>{c.guests}</Text>
               </View>
             </View>
-            <TouchableOpacity
-              style={styles.chefBookBtn}
-              onPress={() =>
-                (navigation as any).navigate('ModalNavigator', {
-                  screen: 'VIPEventReservation',
-                  params: {eventId: c.id},
-                })
-              }
-              activeOpacity={0.8}>
-              <Text style={styles.chefBookText}>Book</Text>
-            </TouchableOpacity>
+            {FeatureFlags.VIP_EVENTS && (
+              <TouchableOpacity
+                style={styles.chefBookBtn}
+                onPress={() =>
+                  (navigation as any).navigate('ModalNavigator', {
+                    screen: 'VIPEventReservation',
+                    params: {eventId: c.id},
+                  })
+                }
+                activeOpacity={0.8}>
+                <Text style={styles.chefBookText}>Book</Text>
+              </TouchableOpacity>
+            )}
           </TouchableOpacity>
         ))}
 

@@ -17,6 +17,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Colors} from '../../theme/colors';
 import {useUserStore} from '../../store/userStore';
 import Icon from '../../components/ui/Icon';
+import {FeatureFlags} from '../../config/featureFlags';
 import type {ProfileStackParamList, MainTabParamList} from '../../navigation/types';
 
 type Props = CompositeScreenProps<
@@ -250,9 +251,11 @@ export default function ProfileScreen({navigation}: Props) {
                   <Text style={styles.perkText}>{p}</Text>
                 </View>
               ))}
-              <TouchableOpacity style={styles.manageBtn} onPress={() => navigation.navigate('MembershipTiers')} activeOpacity={0.8}>
-                <Text style={styles.manageBtnText}>Manage Membership</Text>
-              </TouchableOpacity>
+              {FeatureFlags.MEMBERSHIP_TIERS && (
+                <TouchableOpacity style={styles.manageBtn} onPress={() => navigation.navigate('MembershipTiers')} activeOpacity={0.8}>
+                  <Text style={styles.manageBtnText}>Manage Membership</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
 

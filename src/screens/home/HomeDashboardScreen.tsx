@@ -16,6 +16,7 @@ import {Colors} from '../../theme/colors';
 import {useUserStore} from '../../store/userStore';
 import type {HomeStackParamList, MainTabParamList} from '../../navigation/types';
 import Icon from '../../components/ui/Icon';
+import {FeatureFlags} from '../../config/featureFlags';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamList, 'HomeDashboard'>,
@@ -319,54 +320,58 @@ export default function HomeDashboardScreen({navigation}: Props) {
         </View>
 
         {/* Travel & Stays Section */}
-        <View style={styles.glassCard}>
-          <View style={styles.itineraryHeader}>
-            <Text style={styles.itineraryTitle}>Travel and Stays</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('TravelStays')}
-              activeOpacity={0.7}>
-              <Text style={styles.itineraryMore}>EXPLORE</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={sectionStyles.entryCard}
-            onPress={() => navigation.navigate('TravelStays')}
-            activeOpacity={0.85}>
-            <View style={sectionStyles.entryIconWrap}>
-              <Icon name="flight" size={22} color={Colors.primary} />
+        {FeatureFlags.VIP_EVENTS && (
+          <>
+            <View style={styles.glassCard}>
+              <View style={styles.itineraryHeader}>
+                <Text style={styles.itineraryTitle}>Travel and Stays</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('TravelStays')}
+                  activeOpacity={0.7}>
+                  <Text style={styles.itineraryMore}>EXPLORE</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={sectionStyles.entryCard}
+                onPress={() => navigation.navigate('TravelStays')}
+                activeOpacity={0.85}>
+                <View style={sectionStyles.entryIconWrap}>
+                  <Icon name="flight" size={22} color={Colors.primary} />
+                </View>
+                <View style={sectionStyles.entryMeta}>
+                  <Text style={sectionStyles.entryTitle}>Browse Retreats and Stays</Text>
+                  <Text style={sectionStyles.entrySub}>Private villas, luxury suites and bespoke travel experiences</Text>
+                </View>
+                <Icon name="chevron-right" size={20} color={Colors.primary} />
+              </TouchableOpacity>
             </View>
-            <View style={sectionStyles.entryMeta}>
-              <Text style={sectionStyles.entryTitle}>Browse Retreats and Stays</Text>
-              <Text style={sectionStyles.entrySub}>Private villas, luxury suites and bespoke travel experiences</Text>
-            </View>
-            <Icon name="chevron-right" size={20} color={Colors.primary} />
-          </TouchableOpacity>
-        </View>
 
-        {/* Wellness Experiences Section */}
-        <View style={styles.glassCard}>
-          <View style={styles.itineraryHeader}>
-            <Text style={styles.itineraryTitle}>Wellness</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('WellnessExperiences')}
-              activeOpacity={0.7}>
-              <Text style={styles.itineraryMore}>EXPLORE</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={sectionStyles.entryCard}
-            onPress={() => navigation.navigate('WellnessExperiences')}
-            activeOpacity={0.85}>
-            <View style={sectionStyles.entryIconWrap}>
-              <Icon name="spa" size={22} color={Colors.primary} />
+            {/* Wellness Experiences Section */}
+            <View style={styles.glassCard}>
+              <View style={styles.itineraryHeader}>
+                <Text style={styles.itineraryTitle}>Wellness</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('WellnessExperiences')}
+                  activeOpacity={0.7}>
+                  <Text style={styles.itineraryMore}>EXPLORE</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={sectionStyles.entryCard}
+                onPress={() => navigation.navigate('WellnessExperiences')}
+                activeOpacity={0.85}>
+                <View style={sectionStyles.entryIconWrap}>
+                  <Icon name="spa" size={22} color={Colors.primary} />
+                </View>
+                <View style={sectionStyles.entryMeta}>
+                  <Text style={sectionStyles.entryTitle}>Browse Wellness Experiences</Text>
+                  <Text style={sectionStyles.entrySub}>Holistic treatments, performance coaching and restorative rituals</Text>
+                </View>
+                <Icon name="chevron-right" size={20} color={Colors.primary} />
+              </TouchableOpacity>
             </View>
-            <View style={sectionStyles.entryMeta}>
-              <Text style={sectionStyles.entryTitle}>Browse Wellness Experiences</Text>
-              <Text style={sectionStyles.entrySub}>Holistic treatments, performance coaching and restorative rituals</Text>
-            </View>
-            <Icon name="chevron-right" size={20} color={Colors.primary} />
-          </TouchableOpacity>
-        </View>
+          </>
+        )}
 
         <View style={{height: 24}} />
       </ScrollView>

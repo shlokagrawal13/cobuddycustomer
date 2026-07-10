@@ -14,6 +14,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {FeatureFlags} from '../../config/featureFlags';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'EventDetail'>;
 
@@ -222,18 +223,20 @@ export default function EventDetailScreen({navigation, route}: Props) {
         </TouchableOpacity>
 
         {/* CTA */}
-        <TouchableOpacity
-          style={styles.ctaPrimary}
-          onPress={() =>
-            (navigation as any).navigate('ModalNavigator', {
-              screen: 'VIPEventReservation',
-              params: {eventId},
-            })
-          }
-          activeOpacity={0.88}>
-          <Icon name="star" size={18} color={Colors.onPrimary} />
-          <Text style={styles.ctaPrimaryText}>Reserve Your Place</Text>
-        </TouchableOpacity>
+        {FeatureFlags.VIP_EVENTS && (
+          <TouchableOpacity
+            style={styles.ctaPrimary}
+            onPress={() =>
+              (navigation as any).navigate('ModalNavigator', {
+                screen: 'VIPEventReservation',
+                params: {eventId},
+              })
+            }
+            activeOpacity={0.88}>
+            <Icon name="star" size={18} color={Colors.onPrimary} />
+            <Text style={styles.ctaPrimaryText}>Reserve Your Place</Text>
+          </TouchableOpacity>
+        )}
 
         <View style={{height: 24}} />
       </ScrollView>

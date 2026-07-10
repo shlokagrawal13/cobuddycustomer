@@ -1,4 +1,4 @@
-﻿import React, {useState} from 'react';
+import React, {useState} from 'react';
 import {
   View, Text, StyleSheet, ScrollView,
   TouchableOpacity, StatusBar,
@@ -8,6 +8,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {ProfileStackParamList} from '../../navigation/types';
 import {Colors} from '../../theme/colors';
 import Icon from '../../components/ui/Icon';
+import {FeatureFlags} from '../../config/featureFlags';
 
 // Stitch: member_perks_loyalty_dashboard + loyalty_rewards_benefits_dashboard + reward_redemption_screen
 // "Loyalty Ecosystem" | "Your Premium Member Rewards"
@@ -116,10 +117,12 @@ export default function RewardsDashboardScreen({navigation}: Props) {
             <Icon name="group-add" size={18} color={Colors.info} />
             <Text style={styles.quickBtnText}>Refer</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.quickBtn} onPress={() => navigation.navigate('MembershipTiers')} activeOpacity={0.8}>
-            <Icon name="workspace-premium" size={18} color={Colors.onSurfaceVariant} />
-            <Text style={styles.quickBtnText}>Tiers</Text>
-          </TouchableOpacity>
+          {FeatureFlags.MEMBERSHIP_TIERS && (
+            <TouchableOpacity style={styles.quickBtn} onPress={() => navigation.navigate('MembershipTiers')} activeOpacity={0.8}>
+              <Icon name="workspace-premium" size={18} color={Colors.onSurfaceVariant} />
+              <Text style={styles.quickBtnText}>Tiers</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* Curated Rewards - Stitch: local_activity Experience Credits | support_agent Concierge Priority */}

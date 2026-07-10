@@ -16,6 +16,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Colors} from '../../theme/colors';
 import {useUserStore} from '../../store/userStore';
 import type {SearchStackParamList, MainTabParamList} from '../../navigation/types';
+import {FeatureFlags} from '../../config/featureFlags';
 import Icon from '../../components/ui/Icon';
 
 const FILTER_ICON: Record<string, string> = {
@@ -250,67 +251,71 @@ export default function SearchHubScreen({navigation}: Props) {
         </View>
 
         {/* -- Community Circles Section -- */}
-        <View style={styles.communitySection}>
-          <View style={styles.communitySectionHeader}>
-            <Text style={styles.communitySectionTitle}>Community Circles</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('CommunityBrowse')}
-              activeOpacity={0.7}>
-              <Text style={styles.seeAll}>SEE ALL</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={styles.communityEntryCard}
-            onPress={() => navigation.navigate('CommunityBrowse')}
-            activeOpacity={0.85}>
-            <View style={styles.communityEntryIcon}>
-              <Icon name="groups" size={22} color={Colors.primary} />
+        {FeatureFlags.PROFESSIONAL_CIRCLES && (
+          <>
+            <View style={styles.communitySection}>
+              <View style={styles.communitySectionHeader}>
+                <Text style={styles.communitySectionTitle}>Community Circles</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('CommunityBrowse')}
+                  activeOpacity={0.7}>
+                  <Text style={styles.seeAll}>SEE ALL</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={styles.communityEntryCard}
+                onPress={() => navigation.navigate('CommunityBrowse')}
+                activeOpacity={0.85}>
+                <View style={styles.communityEntryIcon}>
+                  <Icon name="groups" size={22} color={Colors.primary} />
+                </View>
+                <View style={styles.communityEntryMeta}>
+                  <Text style={styles.communityEntryTitle}>Browse All Circles</Text>
+                  <Text style={styles.communityEntrySub}>Fine dining, wellness, arts and culture groups</Text>
+                </View>
+                <Icon name="chevron-right" size={20} color={Colors.primary} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.communityEntryCard, {marginTop: 8}]}
+                onPress={() => navigation.navigate('CommunityDetail', {communityId: 'dining'})}
+                activeOpacity={0.85}>
+                <View style={styles.communityEntryIcon}>
+                  <Icon name="restaurant" size={22} color={Colors.primary} />
+                </View>
+                <View style={styles.communityEntryMeta}>
+                  <Text style={styles.communityEntryTitle}>Fine Dining Society</Text>
+                  <Text style={styles.communityEntrySub}>Exclusive tasting events and private dinners</Text>
+                </View>
+                <Icon name="chevron-right" size={20} color={Colors.primary} />
+              </TouchableOpacity>
             </View>
-            <View style={styles.communityEntryMeta}>
-              <Text style={styles.communityEntryTitle}>Browse All Circles</Text>
-              <Text style={styles.communityEntrySub}>Fine dining, wellness, arts and culture groups</Text>
-            </View>
-            <Icon name="chevron-right" size={20} color={Colors.primary} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.communityEntryCard, {marginTop: 8}]}
-            onPress={() => navigation.navigate('CommunityDetail', {communityId: 'dining'})}
-            activeOpacity={0.85}>
-            <View style={styles.communityEntryIcon}>
-              <Icon name="restaurant" size={22} color={Colors.primary} />
-            </View>
-            <View style={styles.communityEntryMeta}>
-              <Text style={styles.communityEntryTitle}>Fine Dining Society</Text>
-              <Text style={styles.communityEntrySub}>Exclusive tasting events and private dinners</Text>
-            </View>
-            <Icon name="chevron-right" size={20} color={Colors.primary} />
-          </TouchableOpacity>
-        </View>
 
-        {/* Professional Circles Section */}
-        <View style={styles.communitySection}>
-          <View style={styles.communitySectionHeader}>
-            <Text style={styles.communitySectionTitle}>Professional Circles</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ProfessionalCircles')}
-              activeOpacity={0.7}>
-              <Text style={styles.seeAll}>VIEW ALL</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={styles.communityEntryCard}
-            onPress={() => navigation.navigate('ProfessionalCircles')}
-            activeOpacity={0.85}>
-            <View style={styles.communityEntryIcon}>
-              <Icon name="business-center" size={20} color={Colors.primary} />
+            {/* Professional Circles Section */}
+            <View style={styles.communitySection}>
+              <View style={styles.communitySectionHeader}>
+                <Text style={styles.communitySectionTitle}>Professional Circles</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ProfessionalCircles')}
+                  activeOpacity={0.7}>
+                  <Text style={styles.seeAll}>VIEW ALL</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={styles.communityEntryCard}
+                onPress={() => navigation.navigate('ProfessionalCircles')}
+                activeOpacity={0.85}>
+                <View style={styles.communityEntryIcon}>
+                  <Icon name="business-center" size={20} color={Colors.primary} />
+                </View>
+                <View style={styles.communityEntryMeta}>
+                  <Text style={styles.communityEntryTitle}>Browse Professional Circles</Text>
+                  <Text style={styles.communityEntrySub}>By-application networks for verified high-calibre members</Text>
+                </View>
+                <Icon name="chevron-right" size={20} color={Colors.primary} />
+              </TouchableOpacity>
             </View>
-            <View style={styles.communityEntryMeta}>
-              <Text style={styles.communityEntryTitle}>Browse Professional Circles</Text>
-              <Text style={styles.communityEntrySub}>By-application networks for verified high-calibre members</Text>
-            </View>
-            <Icon name="chevron-right" size={20} color={Colors.primary} />
-          </TouchableOpacity>
-        </View>
+          </>
+        )}
 
         <View style={{height: 24}} />
       </ScrollView>
